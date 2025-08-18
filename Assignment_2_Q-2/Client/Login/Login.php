@@ -26,7 +26,7 @@
         exit;
     }
 
-    $sql = "SELECT username,password FROM users WHERE role = 'admin' AND username = '$user' AND password = '$pass'";
+    $sql = "SELECT username,password FROM users WHERE role = 'user' AND username = '$user' AND password = '$pass'";
     $result = $conn->query($sql);
 
     if($result->num_rows > 0){

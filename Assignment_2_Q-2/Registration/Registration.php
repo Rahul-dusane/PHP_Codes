@@ -24,7 +24,7 @@
     $pass = $_POST['password'] ?? '';
     $con_pass = $_POST['confirm_password'] ?? '';
     $email = $_POST['email'] ?? '';
-    $role = $_POST['role'] ?? 'User';
+    $role = $_POST['role'] ?? '';
     
     if(empty($user) || empty($pass) || empty($email)){
         echo json_encode (["status" => "error","message" => "All Fields Are Required"]);
