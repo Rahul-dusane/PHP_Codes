@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Category</h2>
+    <div class="menu">
+        <a href="InsertCategory.html">Insert</a>
+        <a href="UpdateCategory.html">Update</a>
+        <a href="DeleteCategory.html">Delete</a>
+    </div>
+    
+    <form id="categoryPage">
+        <label>Category Name: <input type="text" name="categoryName" id="categoryNameId" required /></label><br><br>
+        <label>Discription: </label><textarea name="discription" id="discriptionId"></textarea><br><br>
+        <button type="submit">Add Category</button>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $('#categoryPage').on("submit", function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "Category.php",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        alert(response.message);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error: ", error);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
