@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h3>Form With Ajax And JQuery</h3>
+
+    <form id="basic_form">
+        <label>UserName: </label><input type="text" name="name" id="userName" /><br><br>
+        <label>Email: </label><input type="email" name="email" id="userEmail" /><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="result"></div>
+    
+    <script>
+        $(document).ready(function(){
+            $("#basic_form").submit(function(e){
+                e.preventDefault();
+
+                $.ajax({
+                    url: "Form.php",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function(res){
+                        $("#result").html(res);
+                        $("#basic_form")[0].reset();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
