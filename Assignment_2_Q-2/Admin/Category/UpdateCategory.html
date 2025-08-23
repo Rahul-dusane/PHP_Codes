@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    
+    <h2>Category</h2>
+    <div class="menu">
+        <a href="InsertCategory.html">Insert</a>
+        <a href="UpdateCategory.html">Update</a>
+        <a href="DeleteCategory.html">Delete</a>
+    </div>
+
+    <form id="UpdateCategory">
+        <label>Category Id: </label><input type="number" name="Category_Id_Update" id="Category_Id_Update_Id" required/><br><br>
+        <label>Category Name: </label><input type="text" name="Category_Name_Update" id="Category_Name_Update_Id" required/><br><br>
+        <label>Category Description: </label><input type="text" name="Category_Description_Update" id="Category_Description_Update_Id" required/><br><br>
+        <button type="submit">Update</button>
+    </form>
+
+    <script>
+        $(document).ready(function (){
+            $("#UpdateCategory").on("submit",function(e){
+                e.preventDefault();
+
+                $.ajax({
+                    url: "UpdateCategory.php",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response){
+                        console.log(response);
+                        alert(response.message);
+                    },
+                    error: function(xhr,status,error){
+                        console.log("Error: ",error);
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>

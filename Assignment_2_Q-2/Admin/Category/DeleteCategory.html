@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    
+    <h2>Category</h2>
+    <div class="menu">
+        <a href="InsertCategory.html">Insert</a>
+        <a href="UpdateCategory.html">Update</a>
+        <a href="DeleteCategory.html">Delete</a>
+    </div>
+
+    <form id="DeleteCategory">
+        <label>Category Name :</label><input type="text" name="Category_Name_Delete" id="Category_Name_Delete_Id" /><br><br>
+        <button type="submit">Delete</button>
+    </form>
+
+    <script>
+        $(document).ready(function (){
+            $("#DeleteCategory").on("submit",function (e){
+                e.preventDefault();
+
+                $.ajax({
+                    url: "DeleteCategory.php",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response){
+                        console.log(response);
+                        alert(response.message);
+                    },
+                    error: function(xhr,status,error){
+                        console.error("Error: ",error);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
