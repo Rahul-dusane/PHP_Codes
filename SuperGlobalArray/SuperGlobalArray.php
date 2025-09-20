@@ -11,7 +11,7 @@
     </head>
     <body>
 
-        <form method="post">
+        <form method="post" >
             b : <input type="Number" name="num" id="num" /><br><br>
 
             Name : <input type="text" name="name" id="name"><br><br>
