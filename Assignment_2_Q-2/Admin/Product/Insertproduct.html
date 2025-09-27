@@ -47,7 +47,7 @@
                         if (response.status === "success" && response.categories.length > 0) {
                             $categorySelect.append('<option value="">Select Category</option>');
 
-                            $.each(response.categories, function (index, Category) {
+                            $.each(response.categories, function (index, category) {
                                 $categorySelect.append(
                                     $('<option></option>')
                                         .attr('value', category.category_id)
@@ -60,7 +60,7 @@
                         }
                     },
                     error: function (xhr, status, error) {
-                        $('#name').empty().append('<option value="">Error Loading Category</option>');
+                        $('#CategorySelectId').empty().append('<option value="">Error Loading Category</option>');
                         console.log("Failde To Load Categories: ", status, error);
 
                     }
