@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Product</h2>
+    <div class="menu">
+        <a href="Insertproduct.html">Insert</a>
+        <a href="Updateproduct.html">Update</a>
+        <a href="Deleteproduct.html">Delete</a>
+    </div>
+
+    <form id="productPage" enctype="multipart/form-data">
+        <label>Product Name: <input type="text" name="productName" id="productNameId" required /> </label><br><br>
+        <label>Product Discription: <Input type="text" name="productDiscription" id="productDiscriptionId" />
+        </label><br><br>
+        <label>Product Price: <input type="number" name="productPrice" id="productPriceId" required /> </label><br><br>
+        <label>Product Image: <input type="file" name="productImage" id="productImageId" required></label><br><br>
+        <label>Category:
+            <select name="CategoryId" id="CategorySelectId" required>
+                <option value="">Loading Categoires</option>
+            </select>
+        </label><br><br>
+        <button type="submit">Add Product</button>
+    </form>
+    <div id="responseMessage" style="margin-top: 20px;"></div>
+
+    <script>
+
+        $(document).ready(function () {
+            function loadCategories() {
+                $.ajax({
+                    url: "GetCategory.php",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        var $categorySelect = $('#CategorySelectId');
+                        $categorySelect.empty();
+
+                        if (response.status === "success" && response.categories.length > 0) {
+                            $categorySelect.append('<option value="">Select Category</option>');
+
+                            $.each(response.categories, function (index, Category) {
+                                $categorySelect.append(
+                                    $('<option></option>')
+                                        .attr('value', category.category_id)
+                                        .text(category.name)
+                                );
+                            });
+                        } else {
+                            $categorySelect.append('<option>No Category Found</option>');
+                            console.error("No Category Found or An Error Occurred ...");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $('#name').empty().append('<option value="">Error Loading Category</option>');
+                        console.log("Failde To Load Categories: ", status, error);
+
+                    }
+                });
+            }
+            loadCategories();
+
+
+            $('#productPage').on("submit", function (e) {
+                e.preventDefault();
+
+                var formData = new FormData(this);
+                $('#responseMessage').text("Processing Request...");
+
+                $.ajax({
+                    url: "InsertProduct.php",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (response) {
+                        if(response.status === "success"){
+                            $('#responseMessage').text("✅ Success: " + response.message);
+                            $('#productPage')[0].reset();
+                        }else{
+                            $('#responseMessage').text("❌ Error: " + response.message);
+                        }
+                    },
+                    error: function(xhr,status,error){
+                        $('#responseMessage').text("⚠️ AJAX Error: Failed to connect to server.");
+                        console.error("AJAX Error: ", status, error, xhr.responseText); 
+                    }
+                });
+            });
+        });
+
+
+
+    </script>
+
+</body>
+</html>
