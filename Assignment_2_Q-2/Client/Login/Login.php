@@ -30,7 +30,7 @@
     $result = $conn->query($sql);
 
     if($result->num_rows > 0){
-        $redirectUrl = "../Index/Index.html";
+        $redirectUrl = "../Index/ClientIndex.html";
         echo json_encode(["status" => "success", "message" => "Login Successful","redirect" => $redirectUrl]);
     }else{
         echo json_encode(["status" => "error", "message" => "Invalid Username or Password"]);

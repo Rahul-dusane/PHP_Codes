@@ -15,7 +15,7 @@
                 <h3>User Menu</h3>
                 <ul>
                     <li><a href="javascript:void(0)" onclick="loadWelcome()">Welcome</a></li>
-                    <div id="categotyTree"></div>
+                    <div id="categoryTree"></div>
                     <li><a href="../Login/Login.html" target="_top">Logout</a></li>
                 </ul>
             </td>
@@ -30,13 +30,18 @@
     </table>
 
     <script>
+
+        $(document).ready(function () {
+            loadCategories();
+        })
+
         function loadWelcome() {
             $("#contentFrame").attr("srcdoc", "<h2>Welcome to User Dashboard</h2><p>Select an option from the left menu.</p>");
         }
 
         function loadCategories() {
             $.ajax({
-                url: "Index.php",
+                url: "ClientIndex.php",
                 type: "GET",
                 dataType: "json",
                 success: function (response) {
@@ -44,8 +49,8 @@
                         let html = "";
                         response.data.forEach(cat => {
                             html += `<li> <details> <summary>${cat.name}</summary><ul>`;
-                            cat.product.forEach(p => {
-                                html += `<li><a href="javascript:void(0) onclick="loadProduct(${p.id})">${p.name} </a></li>`;
+                            cat.products.forEach(p => {
+                                html += `<li><a href="javascript:void(0)" onclick="loadProduct(${p.product_id})">${p.product_name} </a></li>`;
                             });
                             html += `</ul></details></li>`;
 
@@ -61,19 +66,28 @@
             });
         }
 
+        
+
         function loadProduct(productId) {
             $.ajax({
-                url: "Index.php",
+                url: "ClientIndex.php",
                 type: "GET",
                 data: { product_id: productId },
                 dataType: "json",
-                success: function (respoonse) {
+                success: function (response) {
                     if (response.status === "success") {
-                        let p = respoonse.data;
-                        let content = `<h2>${p.name}</h2>
-                        <img src="${p.image} width="150"><br>
+                        let p = response.data;
+                        let content = `<h2>${p.product_name}</h2>
+                        <img src="${p.image_url}" width="150"><br>
                         <b>Price:</b>${p.price}<br>
-                        <p>${p.description}</p>`;
+                        <p>${p.description}</p>
+                        <br>
+                        <input type="number" id="quantity_${p.product_id}" value="1" min="1" style="width: 60px; margin-right: 10px;">
+                        <button onclick="addToCart(${p.product_id})" style="background-color: #4CAF50; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Add to Cart</button>
+                        <div id="cart_message_${p.product_id}" style="margin-top: 10px;"></div>`;
+
+                        
+
                         $("#contentFrame").attr("srcdoc", content);
                     } else {
                         $("#contentFrame").attr("srcdoc","<p>Product not found.</p>");
