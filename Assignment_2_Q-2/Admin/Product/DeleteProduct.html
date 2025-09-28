@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Product</h2>
+    <div class="menu">
+        <a href="Insertproduct.html">Insert</a>
+        <a href="DeleteProduct.html">Delete</a>
+    </div>
+
+    <form id="productPage">
+        <label>Product Name: <input type="text" name="productName" id="productNameId" required /></label><br><br>
+        <button type="submit">Delete</button>
+    </form>
+    <div id="responseMessage" style="margin-top: 20px;"></div>
+
+    <script>
+        $(document).ready(function () {
+            $('#productPage').on("submit", function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "DeleteProduct.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        console.log(response);
+                        alert(response.message);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error : ", error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

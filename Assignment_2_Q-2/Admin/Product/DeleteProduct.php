@@ -2,7 +2,7 @@
     header("Content-Type: application/json");
 
     if($_SERVER['REQUEST_METHOD'] !== "POST"){
-        echo json_encode(["status" => "error","message" => "Invalid Request"]);
+        echo json_encode(["status" => "error","message" => "Invalid Request..."]);
         exit;
     }
 
@@ -18,20 +18,21 @@
         exit;
     }
 
-    $categoryName = $_POST['Category_Name_Delete'] ?? '';
+    $productName = $_POST["productName"];
 
-    if(empty($categoryName)){
-        echo json_encode(["status" => "error", "message" => "All Fields Are Required"]);
-        exit;
+    if(empty($productName)){
+       echo json_encode(["status" => "error", "message" => "All Fields Are Required"]);
+        exit; 
     }
 
-    $sql = "DELETE FROM categories WHERE name = '$categoryName'";
+    $sql = "DELETE FROM products WHERE product_name = '$productName'";
     $result = $conn->query($sql);
-    
+
     if($result){
-        echo json_encode(["status" => "error" , "message" => "Category Deleted Successfully"]);
+        echo json_encode(["status" => "error", "message" => "Product Deleted Successfully ." ]);
     }else{
-        echo json_encode(["status" => "error" , "message" => "Error:" . $conn->error]);        
+        echo json_encode(["status" => "error" , "message" => "Error:" . $conn->error]);
     }
+
     $conn->close();
 ?>
