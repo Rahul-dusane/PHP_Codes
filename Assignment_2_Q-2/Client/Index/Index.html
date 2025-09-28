@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <table width="100%" height="100%" border="1" cellspacing="10" cellpadding="10">
+        <tr>
+            <td width="250" valign="top">
+                <h3>User Menu</h3>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="loadWelcome()">Welcome</a></li>
+                    <div id="categotyTree"></div>
+                    <li><a href="../Login/Login.html" target="_top">Logout</a></li>
+                </ul>
+            </td>
+
+            <td valign="top">
+                <iframe name="contentFrame" id="contentFrame" width="100%" height="600px" frameborder="0"
+                    srcdoc="<h2>Welcome to User Dashboard</h2><p>Select an option from the left menu.</p>">
+
+                </iframe>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        function loadWelcome() {
+            $("#contentFrame").attr("srcdoc", "<h2>Welcome to User Dashboard</h2><p>Select an option from the left menu.</p>");
+        }
+
+        function loadCategories() {
+            $.ajax({
+                url: "Index.php",
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    if (response.status === "success") {
+                        let html = "";
+                        response.data.forEach(cat => {
+                            html += `<li> <details> <summary>${cat.name}</summary><ul>`;
+                            cat.product.forEach(p => {
+                                html += `<li><a href="javascript:void(0) onclick="loadProduct(${p.id})">${p.name} </a></li>`;
+                            });
+                            html += `</ul></details></li>`;
+
+                        });
+                        $("#categoryTree").html(html);
+                    } else {
+                        $("#categoryTree").html("<li>No Category Found</li>");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: ", error);
+                }
+            });
+        }
+
+        function loadProduct(productId) {
+            $.ajax({
+                url: "Index.php",
+                type: "GET",
+                data: { product_id: productId },
+                dataType: "json",
+                success: function (respoonse) {
+                    if (response.status === "success") {
+                        let p = respoonse.data;
+                        let content = `<h2>${p.name}</h2>
+                        <img src="${p.image} width="150"><br>
+                        <b>Price:</b>${p.price}<br>
+                        <p>${p.description}</p>`;
+                        $("#contentFrame").attr("srcdoc", content);
+                    } else {
+                        $("#contentFrame").attr("srcdoc","<p>Product not found.</p>");
+                    }
+                },
+                error: function(xhr,status,error){
+                    console.error("Error Loading Product: ",error);
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
