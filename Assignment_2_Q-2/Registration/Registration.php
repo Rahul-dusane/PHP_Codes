@@ -40,7 +40,11 @@
             VALUES ('$user','$pass','$email','$role','active',NOW())";
 
     if($conn->query($sql)){
-        echo json_encode (["status" => "success","message" => "User Registered Successfully"]);
+        
+        $redirectUrl = ($role === 'user') ? "../Client/Login/Login.html" : "../Admin/Login/Login.html";
+
+        echo json_encode (["status" => "success","message" => "User Registered Successfully" , "redirect" => $redirectUrl]);
+
     }else{
         echo json_encode (["status" => "error","message" => "Error: ".$conn->error]);
     }

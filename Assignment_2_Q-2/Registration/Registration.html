@@ -33,6 +33,10 @@
                     success: function(response){
                         console.log(response);
                         alert(response.message);
+
+                        if(response.status === "success" && response.redirect){
+                            window.location.href = response.redirect;
+                        }
                     },
                     error: function(xhr, status, error){
                         console.error("Error: ", error);

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table width="100%" height="100%" border="1" cellspacing="0" cellpadding="10">
+        <tr>
+            <!-- Sidebar -->
+            <td width="200" valign="top">
+                <h3>User Menu</h3>
+                <ul>
+                    <li><a href="welcome.html" target="contentFrame">Welcome</a></li>
+                    <li><a href="../Category/Category.html" target="contentFrame">Categories</a></li>
+                    <li><a href="../Product/Insertproduct.html" target="contentFrame">Products</a></li>
+                    <li><a href="logout.php" target="_top">Logout</a></li>
+                </ul>
+            </td>
+
+            <!-- Main content area with iframe -->
+            <td valign="top">
+                <iframe name="contentFrame" srcdoc="
+                    <h2>Welcome to User Dashboard</h2>
+                    <p>Select an option from the left menu.</p>
+                " width="100%" height="600px" frameborder="0"></iframe>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
