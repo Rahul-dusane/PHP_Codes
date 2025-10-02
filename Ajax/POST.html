@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <input type="text" name="name" id="name"  placeholder="Enter Name"><br><br>
+    <input type="text" name="age" id="age" placeholder="Enter Age"><br><br>
+    <input type="text" name="email" id="email" placeholder="Enter Email"><br><br>
+
+    <button id="send">Send Object</button>
+    <div id="result"></div>
+
+    <script>
+        $("#send").click(function (){
+
+            let obj = {
+                name: $('#name').val(),
+                age: $("#age").val(),
+                email: $("#email").val()
+            };
+
+            $.ajax({
+                url: "postObject.php",
+                type: "POST",
+                data: obj,
+                success: function(response){
+                    $("#result").html(response);
+                },
+                error: function(xhr,status,error){
+                    console.log("Error : ",error);
+                }
+            });
+        });
+
+        // document.getElementById("send").click();
+    </script>
+    
+</body>
+</html>
