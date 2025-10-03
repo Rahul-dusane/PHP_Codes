@@ -44,6 +44,14 @@
                 echo "Query Successfully Processed...";
             }
 
+            $query2 = "SELECT * FROM student";
+
+            $result = mysqli_query($conn,$query2);
+            
+            while($rec = mysqli_fetch_assoc($result)){
+                echo $rec['stud_id'].$rec['first_name'].$rec['last_name']."<br>";
+            }
+
         }
 
     ?>
