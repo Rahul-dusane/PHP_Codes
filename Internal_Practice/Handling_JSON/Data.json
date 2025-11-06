@@ -1,0 +1,44 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "jhon dow",
+            "age": 30,
+            "skills": [
+                "php",
+                "javascript",
+                "html"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "jane smith",
+            "age": 25,
+            "skills": [
+                "python",
+                "java",
+                "sql"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Bob Wilson",
+            "age": 35,
+            "skills": [
+                "C++",
+                "Ruby",
+                "php"
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Alice Brown",
+            "age": 25,
+            "skills": [
+                "React",
+                "Node.js",
+                "MongoDB"
+            ]
+        }
+    ]
+}
