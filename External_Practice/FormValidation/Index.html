@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+</head>
+<body>
+
+    <form action="script.php" method="post">
+        <label>Name :</label><input type="text" name="name" id="name"/><br><br>
+        <label>Email :</label><input type="email" name="email" id="email"/><br><br>
+        <label>Password :</label><input type="password" name="password" id="password"/><br><br>
+        <label>Confirm Password :</label><input type="password" name="cpass" id="cpass"/><br><br>
+        <label>Phone No :</label><input type="number" name="number" id="number"/><br><br>
+        <label>State :</label><select name="state"><br><br>
+            <option value="Gujrat">Gujrat</option>
+            <option value="Maharastra">Maharastra</option>
+            <option value="Goa">Goa</option>
+            <option value="UttarPradesh">UttarPradesh</option>    
+            <option value="Keral">Keral</option>
+        </select><br><br>
+        <label>Gender :</label><input type="radio" name="gender" id="Male" value="Male"/>Male<input type="radio" name="gender" id="Female" value="Female"/>Female<input type="radio" name="gender" id="Other" value="Ohter"/>Other<br><br>
+        <img src="Captch.php" alt="Captch" /><br><br>
+        Enter Catpch : <input type="number" name="captch" id="captch" /><br><br>
+        <input type="submit" name="submit" value="Submit"/>
+    </form>
+    <div id="result"></div>
+    
+</body>
+</html>
